@@ -1,9 +1,12 @@
 *.iml
-.gradle
+/.gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+/.idea
 .DS_Store
 /build
 /captures
-.externalNativeBuild
+/app/session_analytics.tap
+/app/session_analytics_to_send/
+/app/com.crashlytics.settings.json
+/projectFilesBackup
+git
