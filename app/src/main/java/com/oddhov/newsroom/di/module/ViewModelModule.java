@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentActivity;
 
 import com.oddhov.newsroom.data.NewsRepository;
 import com.oddhov.newsroom.di.annotation.ActivityScope;
-import com.oddhov.newsroom.viewmodels.ListNewsViewModel;
-import com.oddhov.newsroom.viewmodels.ListNewsViewModelFactory;
+import com.oddhov.newsroom.viewmodels.ListNewsSourcesViewModel;
+import com.oddhov.newsroom.viewmodels.ListNewsSourcesViewModelFactory;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,14 +26,14 @@ public class ViewModelModule {
 
     @Provides
     @ActivityScope
-    ListNewsViewModel provideListNewsViewModel(ViewModelProvider.Factory factory)  {
-        return ViewModelProviders.of(mActivity, factory).get(ListNewsViewModel.class);
+    ListNewsSourcesViewModel provideListNewsViewModel(ViewModelProvider.Factory factory)  {
+        return ViewModelProviders.of(mActivity, factory).get(ListNewsSourcesViewModel.class);
     }
 
     @Provides
     @ActivityScope
     ViewModelProvider.Factory provideListIssuesViewModelFactory(NewsRepository newsRepository) {
-        return new ListNewsViewModelFactory(newsRepository);
+        return new ListNewsSourcesViewModelFactory(newsRepository);
     }
 
 }

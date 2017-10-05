@@ -9,5 +9,5 @@ import com.oddhov.newsroom.data.models.ApiResponse;
  */
 
 public interface NewsRepository {
-    LiveData<ApiResponse> getArticles();
+    LiveData<ApiResponse> getNewsSources();
 }

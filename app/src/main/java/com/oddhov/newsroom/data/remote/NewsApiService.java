@@ -1,6 +1,6 @@
 package com.oddhov.newsroom.data.remote;
 
-import com.oddhov.newsroom.data.models.ArticleSource;
+import com.oddhov.newsroom.data.models.NewsSourcesResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -17,6 +17,6 @@ public interface NewsApiService {
 
     String HEADER_X_API_KEY = "X-Api-Key";
 
-    @GET("articles?source=techcrunch")
-    Single<ArticleSource> getArticles();
+    @GET("sources?language=en")
+    Single<NewsSourcesResponse> getNewsSources();
 }

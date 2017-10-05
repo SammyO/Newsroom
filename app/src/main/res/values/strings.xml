@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Newsroom</string>
+
+    <string name="word.loading">Loading…</string>
+    <string name="toast.update_data.error">Unable to update list</string>
+    <string name="screen.empty.description">No news was found</string>
+    <string name="screen.error.description">There was a problem loading the latest news.</string>
 </resources>

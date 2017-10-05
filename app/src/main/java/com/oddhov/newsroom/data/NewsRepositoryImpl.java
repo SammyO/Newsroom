@@ -25,13 +25,15 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
-    public LiveData<ApiResponse> getArticles() {
+    public LiveData<ApiResponse> getNewsSources() {
         final MutableLiveData<ApiResponse> liveData = new MutableLiveData<>();
-        mApiService.getArticles()
+        mApiService.getNewsSources()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(articleSource -> liveData.setValue(new ApiResponse(articleSource)),
-                        t -> liveData.setValue(new ApiResponse(t))
+                .subscribe(
+                        newsSourcesResponse -> liveData.setValue(
+                                ApiResponse.success(newsSourcesResponse.getNewsSources())),
+                        t -> liveData.setValue(ApiResponse.error(t.getMessage(), t))
                 );
         return liveData;
     }
