@@ -1,9 +1,11 @@
 package com.oddhov.newsroom.data.remote;
 
+import com.oddhov.newsroom.data.models.ArticlesResponse;
 import com.oddhov.newsroom.data.models.NewsSourcesResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by sammy on 26/09/17.
@@ -16,7 +18,13 @@ public interface NewsApiService {
     String BASE_URL = "https://newsapi.org/v1/";
 
     String HEADER_X_API_KEY = "X-Api-Key";
+    String SOURCE = "source";
 
     @GET("sources?language=en")
     Single<NewsSourcesResponse> getNewsSources();
+
+    @GET("articles?")
+    Single<ArticlesResponse> getArticlesForSource(
+        @Query(SOURCE) String source
+    );
 }

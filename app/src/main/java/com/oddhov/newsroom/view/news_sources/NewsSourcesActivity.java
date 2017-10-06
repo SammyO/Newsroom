@@ -1,5 +1,6 @@
-package com.oddhov.newsroom.view;
+package com.oddhov.newsroom.view.news_sources;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +12,13 @@ import android.widget.ViewAnimator;
 import com.oddhov.newsroom.NewsroomApp;
 import com.oddhov.newsroom.R;
 import com.oddhov.newsroom.data.models.NewsSource;
-import com.oddhov.newsroom.di.component.DaggerMainActivityComponent;
-import com.oddhov.newsroom.di.module.ViewModelModule;
-import com.oddhov.newsroom.viewmodels.ListNewsSourcesViewModel;
-import com.oddhov.newsroom.viewmodels.NewsSourcesListAdapter;
+import com.oddhov.newsroom.di.component.DaggerNewsSourcesComponent;
+import com.oddhov.newsroom.di.module.NewsSourcesViewModelModule;
+import com.oddhov.newsroom.utils.Constants;
+import com.oddhov.newsroom.utils.ScreenTransition;
+import com.oddhov.newsroom.view.articles.ArticlesActivity;
+import com.oddhov.newsroom.viewmodels.news_sources.NewsSourcesListAdapter;
+import com.oddhov.newsroom.viewmodels.news_sources.NewsSourcesViewModel;
 
 import java.util.List;
 
@@ -27,7 +31,7 @@ import butterknife.ButterKnife;
  * Created by sammy on 26/09/17.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class NewsSourcesActivity extends AppCompatActivity implements NewsSourceOnClickListener {
     //region Static Fields
     private static final int POSITION_LIST = 0;
     private static final int POSITION_LOADING = 1;
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     NewsSourcesListAdapter mAdapter;
     @Inject
-    ListNewsSourcesViewModel mListNewsViewModel;
+    NewsSourcesViewModel mListNewsViewModel;
 
     // region Lifecycle Methods
     @SuppressWarnings("unchecked")
@@ -53,29 +57,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DaggerMainActivityComponent.builder()
+        DaggerNewsSourcesComponent.builder()
                 .applicationComponent(((NewsroomApp) getApplication()).getApplicationComponent())
-                .viewModelModule(new ViewModelModule(this))
+                .newsSourcesViewModelModule(new NewsSourcesViewModelModule(this))
                 .build()
                 .inject(this);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_news_sources);
         ButterKnife.bind(this);
 
         setupView();
 
         mListNewsViewModel.getAllNewsSources().observe(this, apiResponse -> {
-            if (apiResponse == null || apiResponse.isError()) {
-                return;
+            if (apiResponse == null) {
+                showEmpty();
             }
-
-            // Not sure about this approach. Generics in ApiResponse are nice, but I'd like
-            // a way of ensuring they're of the right type.
-            if (apiResponse.getData() instanceof List<?> &&
-                    ((List<?>) apiResponse.getData()).get(0) instanceof NewsSource) {
-                handleResponse((List) apiResponse.getData());
-            } else {
-                handleError(new Throwable("Incorrect casting"));
+            else if (apiResponse.isError()) {
+                handleError(apiResponse.getError());
+            } else if (apiResponse.isSuccess()) {
+                handleResponse(apiResponse.getData());
             }
         });
     }
@@ -87,6 +87,19 @@ public class MainActivity extends AppCompatActivity {
     }
     // endregion
 
+    //region Interface NewsSourceHandlers
+    @Override
+    public void onClick(NewsSource newsSource) {
+        Intent intent = new Intent(this, ArticlesActivity.class);
+        intent.putExtra(Constants.NEWS_SOURCE_ID, newsSource.getId());
+        startActivity(intent);
+        overridePendingTransition(
+                ScreenTransition.NEXT_SLIDING_SLIDING.getEnter(),
+                ScreenTransition.NEXT_SLIDING_SLIDING.getExit());
+
+    }
+    //endregion
+
     // region UI methods
     private void setupView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(
@@ -94,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         );
         mRecyclerView.hasFixedSize();
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnClickListener(this);
         showLoading();
     }
 
@@ -120,12 +134,16 @@ public class MainActivity extends AppCompatActivity {
 
     // region API methods
     private void handleResponse(List<NewsSource> newsSourceList) {
-        showContent();
-        Toast.makeText(this,
-                "NewsSources found: " + newsSourceList.size(),
-                Toast.LENGTH_SHORT).show();
+        if (newsSourceList.size() > 0) {
+            showContent();
+            Toast.makeText(this,
+                    "NewsSources found: " + newsSourceList.size(),
+                    Toast.LENGTH_SHORT).show();
 
-        mAdapter.setData(newsSourceList);
+            mAdapter.setData(newsSourceList);
+        } else {
+            showError();
+        }
     }
 
     private void handleError(Throwable error) {

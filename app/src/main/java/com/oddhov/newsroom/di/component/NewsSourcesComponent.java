@@ -1,8 +1,8 @@
 package com.oddhov.newsroom.di.component;
 
 import com.oddhov.newsroom.di.annotation.ActivityScope;
-import com.oddhov.newsroom.di.module.ViewModelModule;
-import com.oddhov.newsroom.view.MainActivity;
+import com.oddhov.newsroom.di.module.NewsSourcesViewModelModule;
+import com.oddhov.newsroom.view.news_sources.NewsSourcesActivity;
 
 import dagger.Component;
 
@@ -12,8 +12,8 @@ import dagger.Component;
 @ActivityScope
 @Component(dependencies = ApplicationComponent.class,
         modules = {
-                ViewModelModule.class
+                NewsSourcesViewModelModule.class
         })
-public interface MainActivityComponent {
-    void inject(MainActivity activity);
+public interface NewsSourcesComponent {
+    void inject(NewsSourcesActivity activity);
 }

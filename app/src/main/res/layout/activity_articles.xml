@@ -1,0 +1,23 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.news_sources.NewsSourcesActivity">
+
+    <ViewAnimator
+        android:id="@+id/viewAnimator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <include layout="@layout/content_main_articles"/>
+
+        <include layout="@layout/content_loading"/>
+
+        <include layout="@layout/content_empty"/>
+
+        <include layout="@layout/content_error"/>
+
+    </ViewAnimator>
+
+</android.support.design.widget.CoordinatorLayout>
