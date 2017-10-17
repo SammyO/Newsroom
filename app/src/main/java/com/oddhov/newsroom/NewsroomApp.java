@@ -34,7 +34,7 @@ public class NewsroomApp extends Application {
 
     private void initializeDependencies() {
         mApplicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
+                .applicationModule(new ApplicationModule(this, this))
                 .newsRepositoryModule(new NewsRepositoryModule())
                 .utilsModule(new UtilsModule())
                 .build();

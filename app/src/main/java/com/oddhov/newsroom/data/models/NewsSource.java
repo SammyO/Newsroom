@@ -13,28 +13,28 @@ public class NewsSource {
 
     @SerializedName("id")
     @Expose
-    private String id;
+    protected String id;
     @SerializedName("name")
     @Expose
-    private String name;
+    protected String name;
     @SerializedName("description")
     @Expose
-    private String description;
+    protected String description;
     @SerializedName("url")
     @Expose
-    private String url;
+    protected String url;
     @SerializedName("category")
     @Expose
-    private String category;
+    protected String category;
     @SerializedName("language")
     @Expose
-    private String language;
+    protected String language;
     @SerializedName("country")
     @Expose
-    private String country;
+    protected String country;
     @SerializedName("sortBysAvailable")
     @Expose
-    private List<String> sortBysAvailable = null;
+    protected List<String> sortBysAvailable = null;
 
     public String getId() {
         return id;

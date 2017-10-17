@@ -26,13 +26,13 @@ public class NewsSourcesViewModelModule {
 
     @Provides
     @ActivityScope
-    NewsSourcesViewModel provideListNewsViewModel(ViewModelProvider.Factory factory)  {
+    NewsSourcesViewModel provideNewsViewModel(ViewModelProvider.Factory factory)  {
         return ViewModelProviders.of(mActivity, factory).get(NewsSourcesViewModel.class);
     }
 
     @Provides
     @ActivityScope
-    ViewModelProvider.Factory provideListIssuesViewModelFactory(NewsRepository newsRepository) {
+    ViewModelProvider.Factory provideViewModelFactory(NewsRepository newsRepository) {
         return new NewsSourcesViewModelFactory(newsRepository);
     }
 

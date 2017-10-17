@@ -15,6 +15,7 @@ import com.oddhov.newsroom.data.models.Article;
 import com.oddhov.newsroom.di.component.DaggerArticlesComponent;
 import com.oddhov.newsroom.di.module.ArticlesViewModelModule;
 import com.oddhov.newsroom.utils.Constants;
+import com.oddhov.newsroom.view.BaseActivity;
 import com.oddhov.newsroom.viewmodels.articles.ArticlesListAdapter;
 import com.oddhov.newsroom.viewmodels.articles.ArticlesViewModel;
 
@@ -29,21 +30,7 @@ import butterknife.ButterKnife;
  * Created by sammy on 05/10/17.
  */
 
-public class ArticlesActivity extends AppCompatActivity {
-    //region Static Fields
-    private static final int POSITION_LIST = 0;
-    private static final int POSITION_LOADING = 1;
-    private static final int POSITION_EMPTY = 2;
-    private static final int POSITION_ERROR = 3;
-    //endregion
-
-    @BindView(R.id.recyclerView)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.viewAnimator)
-    ViewAnimator mViewAnimator;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-
+public class ArticlesActivity extends BaseActivity {
     @Inject
     ArticlesListAdapter mAdapter;
     @Inject
@@ -101,25 +88,6 @@ public class ArticlesActivity extends AppCompatActivity {
             });
         }
     }
-
-    void showContent() {
-        mViewAnimator.setDisplayedChild(POSITION_LIST);
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-    public void showError() {
-        mViewAnimator.setDisplayedChild(POSITION_ERROR);
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-    public void showLoading() {
-        mViewAnimator.setDisplayedChild(POSITION_LOADING);
-    }
-
-    public void showEmpty() {
-        mViewAnimator.setDisplayedChild(POSITION_EMPTY);
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
     // endregion
 
     // region API methods
@@ -143,6 +111,4 @@ public class ArticlesActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
     // endregion
-
-
 }

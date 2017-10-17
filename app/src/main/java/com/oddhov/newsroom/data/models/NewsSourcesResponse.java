@@ -15,7 +15,7 @@ public class NewsSourcesResponse {
     private String mStatus;
     @SerializedName("sources")
     @Expose
-    private List<NewsSource> mNewsSources = null;
+    private List<NewsSourceFavourite> mNewsSources = null;
 
     public String getStatus() {
         return mStatus;
@@ -25,11 +25,11 @@ public class NewsSourcesResponse {
         this.mStatus = status;
     }
 
-    public List<NewsSource> getNewsSources() {
+    public List<NewsSourceFavourite> getNewsSources() {
         return mNewsSources;
     }
 
-    public void setNewsSources(List<NewsSource> sources) {
+    public void setNewsSources(List<NewsSourceFavourite> sources) {
         this.mNewsSources = sources;
     }
 }

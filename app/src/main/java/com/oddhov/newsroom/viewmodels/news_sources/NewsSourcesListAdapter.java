@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.oddhov.newsroom.R;
 import com.oddhov.newsroom.data.models.NewsSource;
+import com.oddhov.newsroom.data.models.NewsSourceFavourite;
 import com.oddhov.newsroom.databinding.ItemNewsSourceBinding;
 import com.oddhov.newsroom.view.news_sources.NewsSourceOnClickListener;
 import com.oddhov.newsroom.view.news_sources.NewsSourceViewHolder;
@@ -30,7 +31,7 @@ public class NewsSourcesListAdapter extends RecyclerView.Adapter<NewsSourceViewH
         this.mNewsSources = new ArrayList<>();
     }
 
-    public void setData(List<NewsSource> newsSources) {
+    public void setData(List<NewsSourceFavourite> newsSources) {
         this.mNewsSources.clear();
         this.mNewsSources.addAll(newsSources);
 

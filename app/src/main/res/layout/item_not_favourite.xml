@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="newsSource" type="com.oddhov.newsroom.data.models.NewsSource"/>
+        <variable name="viewHolder" type="com.oddhov.newsroom.view.favourites.NotFavouriteViewHolder"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:onClick="@{() -> viewHolder.onClick()}">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_grey">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{newsSource.getName()}"
+                android:padding="8dp"
+                tools:text="lorum ipsum lorum ipsum" />
+
+        </FrameLayout>
+    </android.support.v7.widget.CardView>
+</layout>

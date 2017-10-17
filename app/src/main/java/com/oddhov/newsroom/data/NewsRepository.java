@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 
 import com.oddhov.newsroom.data.models.ApiResponse;
 import com.oddhov.newsroom.data.models.Article;
-import com.oddhov.newsroom.data.models.NewsSource;
+import com.oddhov.newsroom.data.models.NewsSourceFavourite;
 
 import java.util.List;
 
@@ -13,7 +13,9 @@ import java.util.List;
  */
 
 public interface NewsRepository {
-    LiveData<ApiResponse<List<NewsSource>>> getNewsSources();
+    LiveData<ApiResponse<List<NewsSourceFavourite>>> getNewsSources();
+
+    LiveData<ApiResponse<List<NewsSourceFavourite>>> getNewsSourceFavourites();
 
     LiveData<ApiResponse<List<Article>>> getArticlesForNewsSource(String newsSource);
 }

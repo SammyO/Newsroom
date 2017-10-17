@@ -1,30 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.oddhov.newsroom">
 
     <application
-        android:name="com.oddhov.newsroom.NewsroomApp"
+        android:name=".NewsroomApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".view.news_sources.NewsSourcesActivity"
-            android:label="@string/app_name">
-
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".view.articles.ArticlesActivity">
-        </activity>
-
+        <activity android:name=".view.articles.ArticlesActivity"/>
+        <activity android:name=".view.favourites.FavouritesActivity"
+            android:label="@string/favourites.title"/>
     </application>
 
 </manifest>

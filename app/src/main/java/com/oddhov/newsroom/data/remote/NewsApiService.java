@@ -3,7 +3,7 @@ package com.oddhov.newsroom.data.remote;
 import com.oddhov.newsroom.data.models.ArticlesResponse;
 import com.oddhov.newsroom.data.models.NewsSourcesResponse;
 
-import io.reactivex.Single;
+import io.reactivex.Maybe;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -21,10 +21,10 @@ public interface NewsApiService {
     String SOURCE = "source";
 
     @GET("sources?language=en")
-    Single<NewsSourcesResponse> getNewsSources();
+    Maybe<NewsSourcesResponse> getNewsSources();
 
     @GET("articles?")
-    Single<ArticlesResponse> getArticlesForSource(
+    Maybe<ArticlesResponse> getArticlesForSource(
         @Query(SOURCE) String source
     );
 }

@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentActivity;
 
 import com.oddhov.newsroom.data.NewsRepository;
 import com.oddhov.newsroom.di.annotation.ActivityScope;
-import com.oddhov.newsroom.viewmodels.articles.ArticlesViewModel;
-import com.oddhov.newsroom.viewmodels.articles.ArticlesViewModelFactory;
+import com.oddhov.newsroom.viewmodels.favourites.FavouritesViewModel;
+import com.oddhov.newsroom.viewmodels.favourites.FavouritesViewModelFactory;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,23 +17,23 @@ import dagger.Provides;
  */
 
 @Module()
-public class ArticlesViewModelModule {
+public class FavouritesViewModelModule {
     private FragmentActivity mActivity;
 
-    public ArticlesViewModelModule(FragmentActivity activity) {
+    public FavouritesViewModelModule(FragmentActivity activity) {
         this.mActivity = activity;
     }
 
     @Provides
     @ActivityScope
-    ArticlesViewModel provideNewsViewModel(ViewModelProvider.Factory factory)  {
-        return ViewModelProviders.of(mActivity, factory).get(ArticlesViewModel.class);
+    FavouritesViewModel provideNewsViewModel(ViewModelProvider.Factory factory)  {
+        return ViewModelProviders.of(mActivity, factory).get(FavouritesViewModel.class);
     }
 
     @Provides
     @ActivityScope
     ViewModelProvider.Factory provideViewModelFactory(NewsRepository newsRepository) {
-        return new ArticlesViewModelFactory(newsRepository);
+        return new FavouritesViewModelFactory(newsRepository);
     }
 
 }
